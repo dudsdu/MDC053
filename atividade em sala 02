@@ -1,0 +1,375 @@
+6a)
+
+CREATE TABLE projeto(
+
+     numero_projeto INT NOT NULL,
+
+     nome_projeto VARCHAR(100) NOT NULL,
+
+     data_inicio_projeto DATE,
+
+     numero_gerente INT NOT NULL,
+
+     PRIMARY KEY(numero_projeto),
+
+     FOREIGN KEY(numero_gerente) REFERENCES gerente(numero_gerente)
+
+   );
+
+CREATE TABLE gerente(
+
+numero_gerente INT NOT NULL,
+
+               nome_gerente VARCHAR(100) NOT NULL,
+
+               PRIMARY KEY(numero_gerente),
+
+);
+
+CREATE TABLE depatamento(
+
+               Numero_depto INT NOT NULL,
+
+               Nome_depto VARCHAR(100) NOT NULL,
+
+               PRIMARY KEY(numero_depto),
+
+);
+
+CREATE TABLE empregado(
+
+               Numero_empregado INT NOT NULL,
+
+               Nome_empregado VARCHAR(100) NOT NULL,
+
+               Numero_depto INT NOT NULL
+
+               PRIMARY KEY(numero_empregado),
+
+               FOREING KEY(numero_depto) REFERENCES departamenro(numero_depto),
+
+);
+
+CREATE TABLE projeto_empregado(
+
+               Horas_trabalhadas_projeto SMALLINT DEFAULT 0,
+
+               Numero_projeto INT NOT NULL,
+
+               Numero_empregado INT NOT NULL,
+
+               PRIMARY KEY (numero_projeto, numero_empregado),
+
+               FOREING KEY (numero_projeto) REFERENCES projeto (numero_projeto),
+
+               FOREING KEY (numero_empregado) REFERNCES empregado (numero_empregado),
+
+);
+
+
+
+
+
+
+
+7)
+
+CREATE TABLE aluno(
+
+ id_aluno INT NOT NULL,
+
+ nome_aluno VARCHAR(100) NOT NULL,
+
+ PRIMARY KEY(id_aluno)
+
+);
+
+
+
+CREATE TABLE disciplina(
+
+ id_disciplina INT NOT NULL,
+
+ nome_disciplina VARCHAR(100) NOT NULL,
+
+ carga_horaria INT CHECK(carga_horaria > 0),
+
+ PRIMARY KEY(id_disciplina)
+
+);
+
+
+
+CREATE TABLE professor(
+
+ id_professor INT NOT NULL,
+
+ nome_professor VARCHAR(100) NOT NULL,
+
+ PRIMARY KEY(id_professor)
+
+);
+
+
+
+CREATE TABLE turma(
+
+ id_turma INT NOT NULL,
+
+ num_periodo INT NOT NULL,
+
+ id_professor INT,
+
+ id_disciplina INT,
+
+ PRIMARY KEY(id_turma),
+
+ FOREIGN KEY(id_professor) REFERENCES professor(id_professor) ON DELETE CASCADE,
+
+ FOREIGN KEY(id_disciplina) REFERENCES disciplina(id_disciplina)
+
+);
+
+
+
+CREATE TABLE historico(
+
+ id_historico INT NOT NULL,
+
+ id_turma INT NOT NULL,
+
+ id_aluno INT NOT NULL,
+
+ num_faltas SMALLINT,
+
+ media_final DECIMAL(3,1),
+
+ PRIMARY KEY(id_historico),
+
+ FOREIGN KEY(id_turma) REFERENCES turma(id_turma) ON DELETE CASCADE,
+
+ FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno)
+
+);
+
+
+
+  INSERT INTO aluno (id_aluno) values ('1');
+
+   
+
+  DELETE FROM aluno where id_aluno =1;
+
+
+
+  INSERT INTO aluno (id_aluno,nome_aluno) values ('1','jose');
+
+   
+
+  INSERT INTO aluno (id_aluno,nome_aluno) values ('2','maria');
+
+   
+
+  INSERT INTO aluno (id_aluno,nome_aluno) values ('3','bruno');
+
+   
+
+  INSERT INTO aluno (id_aluno,nome_aluno) values ('4','carla');
+
+   
+
+  INSERT INTO aluno (id_aluno,nome_aluno) values ('5','pedro');
+
+   
+
+  INSERT INTO disciplina (id_disciplina,nome_disciplina,carga_horaria) values ('1','banco de dados I','-1');
+
+   
+
+  DROP TABLE disciplina;
+
+   
+
+  INSERT INTO disciplina (id_disciplina,nome_disciplina,carga_horaria) values ('1','banco de dados I','60');
+
+   
+
+  INSERT INTO disciplina (id_disciplina,nome_disciplina,carga_horaria) values ('2','banco de dados II','60');
+
+   
+
+  INSERT INTO professor (id_professor,nome_professor) values ('1','leticia');
+
+   
+
+  INSERT INTO professor (id_professor,nome_professor) values ('2','jose reginaldo');
+
+   
+
+  INSERT INTO turma (id_turma,num_periodo) values ('1','20192');
+
+   
+
+  INSERT INTO turma (id_turma,num_periodo) values ('1','20201');
+
+   
+
+  INSERT INTO turma (id_turma,num_periodo,id_professor) values ('2','20201','3');
+
+   
+
+  INSERT INTO turma (id_turma,num_periodo,id_professor,id_disciplina) values ('3','20201','1','1');
+
+   
+
+  INSERT INTO turma (id_turma,num_periodo,id_professor,id_disciplina) values ('4','20202','2','2');
+
+   
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('1','1','1');
+
+   
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('2','1','2');
+
+   
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('3','1','3');
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('4','1','4');
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('5','3','1');
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('6','3','2');
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('7','4','3');
+
+  INSERT INTO turma (id_historico,id_turma ,id_aluno ) values ('8','4','4');
+
+   
+
+  UPDATE aluno SET nome_aluno = 'joao' where id_aluno = 1;
+
+
+
+  UPDATE disciplina SET id_disciplina = 3 where nome_disciplina = 'banco de dados I';
+
+   
+
+  UPDATE historico SET media_final = 5 where id_turma = 4;
+
+   
+
+  DELETE FROM aluno where nome_aluno = 'pedro';
+
+   
+
+  DELETE FROM disciplina where nome_disciplina = 'banco de dados II';
+
+   
+
+  DELETE FROM professor where nome_professor = 'jose reginaldo';
+
+
+
+
+
+
+
+8)
+
+CREATE TABLE     aluno(
+
+id_aluno INT NOT NULL,
+
+nome_aluno VARCHAR(100) NOT NULL,
+
+PRIMARY KEY(id_aluno)
+
+);
+
+
+
+CREATE TABLE disciplina(
+
+id_disciplina INT NOT NULL,
+
+nome_disciplina VARCHAR(100) NOT NULL,
+
+carga_horaria INT CHECK(carga_horaria > 0),
+
+PRIMARY KEY(id_disciplina)
+
+);
+
+
+
+CREATE TABLE professor(
+
+id_professor INT NOT NULL,
+
+nome_professor VARCHAR(100) NOT NULL,
+
+PRIMARY KEY(id_professor)
+
+);
+
+
+
+CREATE TABLE turma(
+
+id_turma INT NOT NULL,
+
+num_periodo INT NOT NULL,
+
+id_professor INT,
+
+id_disciplina INT,
+
+PRIMARY KEY(id_turma),
+
+FOREIGN KEY(id_professor) REFERENCES professor(id_professor) ON DELETE CASCADE,
+
+FOREIGN KEY(id_disciplina) REFERENCES disciplina(id_disciplina)
+
+);
+
+
+
+CREATE TABLE historico(
+
+id_historico INT NOT NULL,
+
+id_turma INT NOT NULL,
+
+id_aluno INT NOT NULL,
+
+num_faltas SMALLINT,
+
+media_final DECIMAL(3,1),
+
+PRIMARY KEY(id_historico),
+
+FOREIGN KEY(id_turma) REFERENCES turma(id_turma) ON DELETE CASCADE,
+
+FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno)
+
+);
+
+a)       SELECT nome_professores from professor;
+
+b)      SELECT nome_aluno from aluno WHERE nome_aluno LIKE ‘%a’;
+
+c)       SELECT id_aluno, num_falta, media_final from histórico WHERE id_turma LIKE‘1’;
+
+d)      SELECT id_aluno from histórico WHERE media_final IS NULL AND id_turma=’1’;
+
+e)      SELECT id_aluno, nome_aluno from histórico JOIN aluno on aluno.id_aluno=histórico_id_aluno WHERE num_falta<5 or media_final<5;
+
+f)        SELECT nome_aluno from histórico JOIN aluno on aluno.id_aluno=histórico.id_aluno WHERE id_turma IN(
+
+SELECT id_turma from turma id_professor IN(
+
+SELECT id_professor from professor WHERE nome_professor=’JOSE REGINALDO’))
+
+Order by nome_aluno;
